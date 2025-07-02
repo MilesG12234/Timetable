@@ -23,23 +23,38 @@ export function TabsList({ children, className = "" }) {
 
 // Each clickable tab
 export function TabsTrigger({ value, children, className = "" }) {
+    console.log("trigger value:", value);
+
+  const isGreen = ["Day 2", "Day 5", "Day 7", "Day 9"].includes(value); 
   const { selected, onChange } = useContext(TabsContext);
   const isActive = selected === value;
-  const isGreen = ["Day 2", "Day 5", "Day 7", "Day 9"].includes(value);
+ 
 
   return (
     <button
-      onClick={() => onChange?.(value)} // prevents crash if onChange is undefined
-      className={`px-4 py-2 rounded transition font-medium capitalize ${
-        isActive
-          ? "bg-blue-600 text-white"
-          : isGreen
-          ? "bg-green-100 text-green-900"
-          : "bg-gray-100 text-black hover:bg-gray-200"
-      } ${className}`}
-    >
-      {children}
-    </button>
+  onClick={() => onChange?.(value)}
+  style={{
+    padding: "8px 16px",
+    borderRadius: "6px",
+    margin: "4px",
+    fontWeight: "bold",
+    backgroundColor: isActive
+      ? "#2563eb" // blue
+      : isGreen
+      ? "#bbf7d0" // light green
+      : "#111", // dark gray
+    color: isActive
+      ? "white"
+      : isGreen
+      ? "#065f46" // dark green text
+      : "white",
+    cursor: "pointer",
+    border: isActive ? "2px solid white" : "none",
+  }}
+>
+  {children}
+</button>
+
   );
 }
 

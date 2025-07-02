@@ -117,19 +117,25 @@ export default function TimetableApp() {
         </TabsList>
 
         {days.map(day => (
-          <TabsContent key={day} value={day}>
-  <div className={`${["Day 2", "Day 5", "Day 7", "Day 9"].includes(day) ? "bg-green-50 p-4 rounded-md" : ""}`}>
+<TabsContent key={day} value={day}>
+  <div
+    style={{
+      backgroundColor: ["Day 2", "Day 5", "Day 7", "Day 9"].includes(day)
+        ? "#d1fae5" // light green
+        : "white", // normal white or light gray
+      padding: "1rem",
+      borderRadius: "8px",
+    }}
+  >
     {selectedDay === day && filteredClasses.length === 0 ? (
       <p className="text-center text-gray-500">No classes found.</p>
     ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
+      <div className="grid gap-4">
         {filteredClasses.map((cls, index) => (
-          <Card key={index} className="bg-white shadow-md border border-gray-200 rounded-md">
+          <Card key={index} className="bg-white shadow-md">
             <CardContent className="p-4">
-              <p className="text-sm font-semibold text-gray-800">{cls.time}</p>
-              <p className="text-gray-700 text-sm">
-                {cls.subject}{cls.room ? ` in room ${cls.room}` : ""}
-              </p>
+              <p className="font-semibold">{cls.time}</p>
+              <p>{cls.subject}{cls.room ? ` in room ${cls.room}` : ""}</p>
             </CardContent>
           </Card>
         ))}
@@ -138,7 +144,9 @@ export default function TimetableApp() {
   </div>
 </TabsContent>
 
-        ))}
+))}
+
+
       </Tabs>
     </div>
   );
